@@ -1,5 +1,5 @@
-#ifndef TRAINGLE_VERIFIER_H_
-#define TRAINGLE_VERIFIER_H_
+#ifndef TRIANGLE_VERIFIER_H_
+#define TRIANGLE_VERIFIER_H_
 
 #include <string>
 
