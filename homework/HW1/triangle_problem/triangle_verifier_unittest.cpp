@@ -6,7 +6,7 @@ namespace {
 
 // normal boundary value test for triangle problem
 // input domain: [1, 200]
-TEST(TraingleVerifierTest, NormalBoundaryValue) {
+TEST(TraingleVerifierBoundaryValueTest, WeakNormal) {
   EXPECT_EQ("Isosceles", triangle::triangle_verifier(1, 100, 100));
   EXPECT_EQ("Isosceles", triangle::triangle_verifier(2, 100, 100));
   EXPECT_EQ("Equilateral", triangle::triangle_verifier(100, 100, 100));
@@ -26,7 +26,7 @@ TEST(TraingleVerifierTest, NormalBoundaryValue) {
 
 // invalid(robust) input test for boundary value test for triangle problem
 // input domain: [1, 200]
-TEST(TraingleVerifierTest, RobustBoundaryValue) {
+TEST(TraingleVerifierBoundaryValueTest, WeakRobust) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(0, 100, 100));
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(201, 100, 100));
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(100, 0, 100));
@@ -37,7 +37,7 @@ TEST(TraingleVerifierTest, RobustBoundaryValue) {
 
 // random input test for boundary value test for triangle problem
 // input domain: [1, 200]
-TEST(TraingleVerifierTest, AllDifferentValue) {
+TEST(TraingleVerifierBoundaryValueTest, Random) {
   EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 3));
   EXPECT_EQ("Scalene", triangle::triangle_verifier(30, 40, 50));
 }
