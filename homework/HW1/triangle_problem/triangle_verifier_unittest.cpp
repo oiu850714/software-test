@@ -57,6 +57,11 @@ TEST(TraingleVerifierEquivalenceClassTest, WeakNormal) {
   EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 3));
 }
 
+// strong normal
+// Because no valid subintervals of either side length exist, the strong normal
+// equivalence class test cases are identical to the weak normal equivalence
+// test cases.
+
 // weak robust
 TEST(TraingleVerifierEquivalenceClassTest, WeakRobust) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(-1, 5, 5));
