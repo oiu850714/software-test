@@ -35,6 +35,9 @@ TEST(TraingleVerifierBoundaryValueTest, WeakRobust) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(100, 100, 201));
 }
 
+// no strong normal and strong robust test cases for boundary value tesr for
+// triangle problem because it is too tedious
+
 // random input test for boundary value test for triangle problem
 // input domain: [1, 200]
 TEST(TraingleVerifierBoundaryValueTest, Random) {
