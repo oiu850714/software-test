@@ -41,4 +41,28 @@ TEST(TraingleVerifierBoundaryValueTest, Random) {
   EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 3));
   EXPECT_EQ("Scalene", triangle::triangle_verifier(30, 40, 50));
 }
+
+// Equivalence class test for triangle problem
+// for classes:
+//   Equilateral
+//   Isosceles
+//   Scalene
+//   Not a triangle
+
+// weak normal
+TEST(TraingleVerifierEquivalenceClassTest, WeakNormal) {
+  EXPECT_EQ("Equilateral", triangle::triangle_verifier(5, 5, 5));
+  EXPECT_EQ("Isosceles", triangle::triangle_verifier(50, 80, 80));
+  EXPECT_EQ("Scalene", triangle::triangle_verifier(3, 4, 5));
+  EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 3));
+}
+
+// weak robust
+TEST(TraingleVerifierEquivalenceClassTest, WeakRobust) {
+  EXPECT_EQ("Equilateral", triangle::triangle_verifier(5, 5, 5));
+  EXPECT_EQ("Isosceles", triangle::triangle_verifier(50, 80, 80));
+  EXPECT_EQ("Scalene", triangle::triangle_verifier(3, 4, 5));
+  EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 3));
+}
+
 } // namespace
