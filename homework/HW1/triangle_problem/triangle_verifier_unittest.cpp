@@ -75,4 +75,14 @@ TEST(TraingleVerifierEquivalenceClassTest, WeakRobust) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, 5, 201));
 }
 
+// strong robust
+TEST(TraingleVerifierEquivalenceClassTest, StrongRobust) {
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(-1, 5, 5));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, -1, 5));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, 5, -1));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(-1, -1, 5));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(-1, 5, -1));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(-1, -1, -1));
+}
+
 } // namespace
