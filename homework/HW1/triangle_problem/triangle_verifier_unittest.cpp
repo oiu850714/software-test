@@ -59,10 +59,12 @@ TEST(TraingleVerifierEquivalenceClassTest, WeakNormal) {
 
 // weak robust
 TEST(TraingleVerifierEquivalenceClassTest, WeakRobust) {
-  EXPECT_EQ("Equilateral", triangle::triangle_verifier(5, 5, 5));
-  EXPECT_EQ("Isosceles", triangle::triangle_verifier(50, 80, 80));
-  EXPECT_EQ("Scalene", triangle::triangle_verifier(3, 4, 5));
-  EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 3));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(-1, 5, 5));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, -1, 5));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, 5, -1));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(201, 5, 5));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, 201, 5));
+  EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, 5, 201));
 }
 
 } // namespace
