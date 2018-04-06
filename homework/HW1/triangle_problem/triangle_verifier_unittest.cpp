@@ -24,7 +24,7 @@ TEST(TraingleVerifierTest, NormalBoundaryValue) {
   EXPECT_EQ("Not a triangle", triangle::triangle_verifier(100, 100, 200));
 }
 
-// extra test for boundary value test for triangle problem
+// invalid(robust) input test for boundary value test for triangle problem
 // input domain: [1, 200]
 TEST(TraingleVerifierTest, RobustBoundaryValue) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(0, 100, 100));
@@ -35,6 +35,8 @@ TEST(TraingleVerifierTest, RobustBoundaryValue) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(100, 100, 201));
 }
 
+// random input test for boundary value test for triangle problem
+// input domain: [1, 200]
 TEST(TraingleVerifierTest, AllDifferentValue) {
   EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 3));
   EXPECT_EQ("Scalene", triangle::triangle_verifier(30, 40, 50));
