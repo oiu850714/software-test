@@ -85,4 +85,28 @@ TEST(TraingleVerifierEquivalenceClassTest, StrongRobust) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(-1, -1, -1));
 }
 
+// decision table method
+// refer to the ppt of chpater 07, page 7 and 22
+TEST(TraingleVerifierDecisionTableTest, ALL) {
+  EXPECT_EQ("Not a triangle", triangle::triangle_verifier(4, 1, 2));
+  EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 4, 2));
+  EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 4));
+  EXPECT_EQ("Equilateral", triangle::triangle_verifier(5, 5, 5));
+
+  // EXPECT_EQ("Invalid input", triangle::triangle_verifier(, , ));
+  // impossible
+
+  // EXPECT_EQ("Invalid input", triangle::triangle_verifier(, , ));
+  // impossible
+
+  EXPECT_EQ("Isosceles", triangle::triangle_verifier(2, 2, 3));
+
+  // EXPECT_EQ("Invalid input", triangle::triangle_verifier(, , ));
+  // impossible
+
+  EXPECT_EQ("Isosceles", triangle::triangle_verifier(2, 3, 2));
+  EXPECT_EQ("Isosceles", triangle::triangle_verifier(3, 2, 2));
+  EXPECT_EQ("Scalene", triangle::triangle_verifier(3, 4, 5));
+}
+
 } // namespace
