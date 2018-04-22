@@ -6,7 +6,7 @@ namespace {
 
 // normal boundary value test for triangle problem
 // input domain: [1, 200]
-TEST(TraingleVerifierBoundaryValueTest, WeakNormal) {
+TEST(TriangleVerifierBoundaryValueTest, WeakNormal) {
   EXPECT_EQ("Isosceles", triangle::triangle_verifier(1, 100, 100));
   EXPECT_EQ("Isosceles", triangle::triangle_verifier(2, 100, 100));
   EXPECT_EQ("Equilateral", triangle::triangle_verifier(100, 100, 100));
@@ -26,7 +26,7 @@ TEST(TraingleVerifierBoundaryValueTest, WeakNormal) {
 
 // invalid(robust) input test for boundary value test for triangle problem
 // input domain: [1, 200]
-TEST(TraingleVerifierBoundaryValueTest, WeakRobust) {
+TEST(TriangleVerifierBoundaryValueTest, WeakRobust) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(0, 100, 100));
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(201, 100, 100));
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(100, 0, 100));
@@ -40,7 +40,7 @@ TEST(TraingleVerifierBoundaryValueTest, WeakRobust) {
 
 // random input test for boundary value test for triangle problem
 // input domain: [1, 200]
-TEST(TraingleVerifierBoundaryValueTest, Random) {
+TEST(TriangleVerifierBoundaryValueTest, Random) {
   EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 3));
   EXPECT_EQ("Scalene", triangle::triangle_verifier(30, 40, 50));
 }
@@ -53,7 +53,7 @@ TEST(TraingleVerifierBoundaryValueTest, Random) {
 //   Not a triangle
 
 // weak normal
-TEST(TraingleVerifierEquivalenceClassTest, WeakNormal) {
+TEST(TriangleVerifierEquivalenceClassTest, WeakNormal) {
   EXPECT_EQ("Equilateral", triangle::triangle_verifier(5, 5, 5));
   EXPECT_EQ("Isosceles", triangle::triangle_verifier(50, 80, 80));
   EXPECT_EQ("Scalene", triangle::triangle_verifier(3, 4, 5));
@@ -66,7 +66,7 @@ TEST(TraingleVerifierEquivalenceClassTest, WeakNormal) {
 // test cases.
 
 // weak robust
-TEST(TraingleVerifierEquivalenceClassTest, WeakRobust) {
+TEST(TriangleVerifierEquivalenceClassTest, WeakRobust) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(-1, 5, 5));
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, -1, 5));
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, 5, -1));
@@ -76,7 +76,7 @@ TEST(TraingleVerifierEquivalenceClassTest, WeakRobust) {
 }
 
 // strong robust
-TEST(TraingleVerifierEquivalenceClassTest, StrongRobust) {
+TEST(TriangleVerifierEquivalenceClassTest, StrongRobust) {
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(-1, 5, 5));
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, -1, 5));
   EXPECT_EQ("Invalid input", triangle::triangle_verifier(5, 5, -1));
@@ -87,7 +87,7 @@ TEST(TraingleVerifierEquivalenceClassTest, StrongRobust) {
 
 // decision table method
 // refer to the ppt of chpater 07, page 7 and 22
-TEST(TraingleVerifierDecisionTableTest, ALL) {
+TEST(TriangleVerifierDecisionTableTest, ALL) {
   EXPECT_EQ("Not a triangle", triangle::triangle_verifier(4, 1, 2));
   EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 4, 2));
   EXPECT_EQ("Not a triangle", triangle::triangle_verifier(1, 2, 4));
