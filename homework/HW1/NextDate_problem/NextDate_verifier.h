@@ -29,4 +29,4 @@ struct Date {
   }
 };
 const Date DATE_INVALID = {0, 0, 0};
-Date NextDate_verifier(Date d);
+Date NextDate_verifier(const Date &d);
