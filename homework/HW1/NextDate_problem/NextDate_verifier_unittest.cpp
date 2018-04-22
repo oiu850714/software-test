@@ -65,9 +65,9 @@ TEST(NextDateVerifierEquivalenceClassTest, StrongNormal) {
   EXPECT_EQ(Date(2000, 6, 30), NextDate_verifier(Date(2000, 6, 29)));
   EXPECT_EQ(Date(1996, 6, 30), NextDate_verifier(Date(1996, 6, 29)));
   EXPECT_EQ(Date(2002, 6, 30), NextDate_verifier(Date(2002, 6, 29)));
-  EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(2000, 6, 30)));
-  EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(1996, 6, 30)));
-  EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(2002, 6, 30)));
+  EXPECT_EQ(Date(2000, 7, 1), NextDate_verifier(Date(2000, 6, 30)));
+  EXPECT_EQ(Date(1996, 7, 1), NextDate_verifier(Date(1996, 6, 30)));
+  EXPECT_EQ(Date(2002, 7, 1), NextDate_verifier(Date(2002, 6, 30)));
   EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(2000, 6, 31)));
   EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(1996, 6, 31)));
   EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(2002, 6, 31)));
