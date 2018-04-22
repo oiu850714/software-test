@@ -96,29 +96,32 @@ TEST(NextDateVerifierEquivalenceClassTest, StrongNormal) {
   EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(1996, 2, 31)));
   EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(2002, 2, 31)));
 }
-/*
+
 // decision table method
 // refer to the ppt of chpater 07, page 7 and 22
 TEST(NextDateVerifierDecisionTableTest, ALL) {
-  EXPECT_EQ("Not a triangle", NextDate_verifier(4, 1, 2));
-  EXPECT_EQ("Not a triangle", NextDate_verifier(1, 4, 2));
-  EXPECT_EQ("Not a triangle", NextDate_verifier(1, 2, 4));
-  EXPECT_EQ("Equilateral", NextDate_verifier(5, 5, 5));
-
-  // EXPECT_EQ("Invalid input", NextDate_verifier(, , ));
-  // impossible
-
-  // EXPECT_EQ("Invalid input", NextDate_verifier(, , ));
-  // impossible
-
-  EXPECT_EQ("Isosceles", NextDate_verifier(2, 2, 3));
-
-  // EXPECT_EQ("Invalid input", NextDate_verifier(, , ));
-  // impossible
-
-  EXPECT_EQ("Isosceles", NextDate_verifier(2, 3, 2));
-  EXPECT_EQ("Isosceles", NextDate_verifier(3, 2, 2));
-  EXPECT_EQ("Scalene", NextDate_verifier(3, 4, 5));
+  EXPECT_EQ(Date(2000, 6, 16), NextDate_verifier(Date(2000, 6, 15)));
+  EXPECT_EQ(Date(2000, 6, 29), NextDate_verifier(Date(2000, 6, 28)));
+  EXPECT_EQ(Date(2000, 6, 30), NextDate_verifier(Date(2000, 6, 29)));
+  EXPECT_EQ(Date(2000, 7, 1), NextDate_verifier(Date(2000, 6, 30)));
+  EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(2000, 6, 31)));
+  EXPECT_EQ(Date(2000, 7, 16), NextDate_verifier(Date(2000, 7, 15)));
+  EXPECT_EQ(Date(2000, 7, 29), NextDate_verifier(Date(2000, 7, 28)));
+  EXPECT_EQ(Date(2000, 7, 30), NextDate_verifier(Date(2000, 7, 29)));
+  EXPECT_EQ(Date(2000, 7, 31), NextDate_verifier(Date(2000, 7, 30)));
+  EXPECT_EQ(Date(2000, 8, 1), NextDate_verifier(Date(2000, 7, 31)));
+  EXPECT_EQ(Date(2000, 12, 16), NextDate_verifier(Date(2000, 12, 15)));
+  EXPECT_EQ(Date(2000, 12, 29), NextDate_verifier(Date(2000, 12, 28)));
+  EXPECT_EQ(Date(2000, 12, 30), NextDate_verifier(Date(2000, 12, 29)));
+  EXPECT_EQ(Date(2000, 12, 31), NextDate_verifier(Date(2000, 12, 30)));
+  EXPECT_EQ(Date(2001, 1, 1), NextDate_verifier(Date(2000, 12, 31)));
+  EXPECT_EQ(Date(2000, 2, 16), NextDate_verifier(Date(2000, 2, 15)));
+  EXPECT_EQ(Date(2000, 2, 29), NextDate_verifier(Date(2000, 2, 28)));
+  EXPECT_EQ(Date(2001, 3, 1), NextDate_verifier(Date(2001, 2, 28)));
+  EXPECT_EQ(Date(2000, 3, 1), NextDate_verifier(Date(2000, 2, 29)));
+  EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(2001, 2, 29)));
+  EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(2000, 2, 30)));
+  EXPECT_EQ(DATE_INVALID, NextDate_verifier(Date(2000, 2, 31)));
 }
-*/
+
 } // namespace
