@@ -117,7 +117,7 @@ Y2 = {year: year is a common year}
     * ![](https://i.imgur.com/unrvqUJ.png)
     * ![](https://i.imgur.com/x6eQ0vu.png)
 
-* 這裡主要是切 output，而 output 變數只有一個，所以不會有 strong test 不會有額外測資；然後 robust test。也就是要讓 output 為 invalid，只需要讓任意 input 為 invalid 就行了:
+* 這裡主要是切 output，而 output 變數只有一個，所以不會有 strong test 不會有額外測資；然後 robust test，也就是要讓 output 為 invalid，只需要讓任意 input 為 invalid 就行了:
     * ![](https://i.imgur.com/84I3OTJ.png)
 
 * 目前空的實作的測試結果:
