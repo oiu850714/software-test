@@ -75,17 +75,14 @@ TEST(CommissionVerifierBoundaryValueTest, Robust) {
             Commission_verifier(70, 80, 91)); // output minimum+
 }
 
-/*
-// no strong normal and strong robust test cases for boundary value tesr for
-// Commission problem because it is too tedious
-
 // random input test for boundary value test for triangle problem
-// input domain: 1812/01/01 - 2012/12/31
+// "output" domain: 10 - 1420
 TEST(CommissionVerifierBoundaryValueTest, Random) {
-  EXPECT_EQ(Date(1950, 7, 1), Commission_verifier(Date(1950, 6, 30)));
-  EXPECT_EQ(Date(2000, 2, 29), Commission_verifier(Date(2000, 2, 28)));
+  EXPECT_EQ(Commission(4900, 840), Commission_verifier(50, 30, 70));
+  EXPECT_EQ(Commission(2000, 260), Commission_verifier(20, 20, 20));
 }
 
+/*
 // Equivalence class test for Commission problem
 //
 // M1 = { month: month has 30 days}
