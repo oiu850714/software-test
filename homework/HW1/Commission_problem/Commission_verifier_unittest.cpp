@@ -82,7 +82,6 @@ TEST(CommissionVerifierBoundaryValueTest, Random) {
   EXPECT_EQ(Commission(2000, 260), Commission_verifier(20, 20, 20));
 }
 
-/*
 // Equivalence class test for Commission problem
 //
 // M1 = { month: month has 30 days}
@@ -95,71 +94,18 @@ TEST(CommissionVerifierBoundaryValueTest, Random) {
 // Y3 = {year: year is a common year}
 
 TEST(CommissionVerifierEquivalenceClassTest, StrongNormal) {
-
   // just copy test cases from page 111 on textbook
-  EXPECT_EQ(Date(2000, 6, 15), Commission_verifier(Date(2000, 6, 14)));
-  EXPECT_EQ(Date(1996, 6, 15), Commission_verifier(Date(1996, 6, 14)));
-  EXPECT_EQ(Date(2002, 6, 15), Commission_verifier(Date(2002, 6, 14)));
-  EXPECT_EQ(Date(2000, 6, 30), Commission_verifier(Date(2000, 6, 29)));
-  EXPECT_EQ(Date(1996, 6, 30), Commission_verifier(Date(1996, 6, 29)));
-  EXPECT_EQ(Date(2002, 6, 30), Commission_verifier(Date(2002, 6, 29)));
-  EXPECT_EQ(Date(2000, 7, 1), Commission_verifier(Date(2000, 6, 30)));
-  EXPECT_EQ(Date(1996, 7, 1), Commission_verifier(Date(1996, 6, 30)));
-  EXPECT_EQ(Date(2002, 7, 1), Commission_verifier(Date(2002, 6, 30)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2000, 6, 31)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(1996, 6, 31)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2002, 6, 31)));
-  EXPECT_EQ(Date(2000, 7, 15), Commission_verifier(Date(2000, 7, 14)));
-  EXPECT_EQ(Date(1996, 7, 15), Commission_verifier(Date(1996, 7, 14)));
-  EXPECT_EQ(Date(2002, 7, 15), Commission_verifier(Date(2002, 7, 14)));
-  EXPECT_EQ(Date(2000, 7, 30), Commission_verifier(Date(2000, 7, 29)));
-  EXPECT_EQ(Date(1996, 7, 30), Commission_verifier(Date(1996, 7, 29)));
-  EXPECT_EQ(Date(2002, 7, 30), Commission_verifier(Date(2002, 7, 29)));
-  EXPECT_EQ(Date(2000, 7, 31), Commission_verifier(Date(2000, 7, 30)));
-  EXPECT_EQ(Date(1996, 7, 31), Commission_verifier(Date(1996, 7, 30)));
-  EXPECT_EQ(Date(2002, 7, 31), Commission_verifier(Date(2002, 7, 30)));
-  EXPECT_EQ(Date(2000, 8, 1), Commission_verifier(Date(2000, 7, 31)));
-  EXPECT_EQ(Date(1996, 8, 1), Commission_verifier(Date(1996, 7, 31)));
-  EXPECT_EQ(Date(2002, 8, 1), Commission_verifier(Date(2002, 7, 31)));
-  EXPECT_EQ(Date(2000, 2, 15), Commission_verifier(Date(2000, 2, 14)));
-  EXPECT_EQ(Date(1996, 2, 15), Commission_verifier(Date(1996, 2, 14)));
-  EXPECT_EQ(Date(2002, 2, 15), Commission_verifier(Date(2002, 2, 14)));
-  EXPECT_EQ(Date(2000, 3, 1), Commission_verifier(Date(2000, 2, 29)));
-  EXPECT_EQ(Date(1996, 3, 1), Commission_verifier(Date(1996, 2, 29)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2002, 2, 29)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2000, 2, 30)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(1996, 2, 30)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2002, 2, 30)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2000, 2, 31)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(1996, 2, 31)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2002, 2, 31)));
+  EXPECT_EQ(Commission(500, 50), Commission_verifier(5, 5, 5));
+  EXPECT_EQ(Commission(1500, 175), Commission_verifier(15, 15, 15));
+  EXPECT_EQ(Commission(2500, 360), Commission_verifier(25, 25, 25));
 }
 
 // decision table method
-// refer to the ppt of chpater 07, page 7 and 22
+// according to chapter 07 p.32, same as equivalence class test
 TEST(CommissionVerifierDecisionTableTest, ALL) {
-  EXPECT_EQ(Date(2000, 6, 16), Commission_verifier(Date(2000, 6, 15)));
-  EXPECT_EQ(Date(2000, 6, 29), Commission_verifier(Date(2000, 6, 28)));
-  EXPECT_EQ(Date(2000, 6, 30), Commission_verifier(Date(2000, 6, 29)));
-  EXPECT_EQ(Date(2000, 7, 1), Commission_verifier(Date(2000, 6, 30)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2000, 6, 31)));
-  EXPECT_EQ(Date(2000, 7, 16), Commission_verifier(Date(2000, 7, 15)));
-  EXPECT_EQ(Date(2000, 7, 29), Commission_verifier(Date(2000, 7, 28)));
-  EXPECT_EQ(Date(2000, 7, 30), Commission_verifier(Date(2000, 7, 29)));
-  EXPECT_EQ(Date(2000, 7, 31), Commission_verifier(Date(2000, 7, 30)));
-  EXPECT_EQ(Date(2000, 8, 1), Commission_verifier(Date(2000, 7, 31)));
-  EXPECT_EQ(Date(2000, 12, 16), Commission_verifier(Date(2000, 12, 15)));
-  EXPECT_EQ(Date(2000, 12, 29), Commission_verifier(Date(2000, 12, 28)));
-  EXPECT_EQ(Date(2000, 12, 30), Commission_verifier(Date(2000, 12, 29)));
-  EXPECT_EQ(Date(2000, 12, 31), Commission_verifier(Date(2000, 12, 30)));
-  EXPECT_EQ(Date(2001, 1, 1), Commission_verifier(Date(2000, 12, 31)));
-  EXPECT_EQ(Date(2000, 2, 16), Commission_verifier(Date(2000, 2, 15)));
-  EXPECT_EQ(Date(2000, 2, 29), Commission_verifier(Date(2000, 2, 28)));
-  EXPECT_EQ(Date(2001, 3, 1), Commission_verifier(Date(2001, 2, 28)));
-  EXPECT_EQ(Date(2000, 3, 1), Commission_verifier(Date(2000, 2, 29)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2001, 2, 29)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2000, 2, 30)));
-  EXPECT_EQ(DATE_INVALID, Commission_verifier(Date(2000, 2, 31)));
+  EXPECT_EQ(Commission(500, 50), Commission_verifier(5, 5, 5));
+  EXPECT_EQ(Commission(1500, 175), Commission_verifier(15, 15, 15));
+  EXPECT_EQ(Commission(2500, 360), Commission_verifier(25, 25, 25));
 }
-*/
+
 } // namespace
