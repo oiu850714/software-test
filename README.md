@@ -20,5 +20,3 @@
     * after `make`, run `Commission_verifier_unittest`
 
 ### Add Jenkinsfile  
-
-
