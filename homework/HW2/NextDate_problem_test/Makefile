@@ -26,11 +26,11 @@ SAMPLE_DIR = ../../../samples
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
-CXXFLAGS += -g -Wall -Wextra -pthread
+CXXFLAGS += -std=c++17 -g -Wall -Wextra -pthread
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = sample1_unittest NextDate_verifier_unittest
+TESTS = sample1_unittest NextDate_verifier_pathtest
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -76,11 +76,11 @@ gtest_main.a : gtest-all.o gtest_main.o
 NextDate_verifier.o : $(USER_DIR)/NextDate_verifier.cpp $(USER_DIR)/NextDate_verifier.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/NextDate_verifier.cpp
 
-NextDate_verifier_unittest.o : $(USER_DIR)/NextDate_verifier_unittest.cpp \
+NextDate_verifier_pathtest.o : $(USER_DIR)/NextDate_verifier_pathtest.cpp \
                      $(USER_DIR)/NextDate_verifier.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/NextDate_verifier_unittest.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/NextDate_verifier_pathtest.cpp
 
-NextDate_verifier_unittest : NextDate_verifier.o NextDate_verifier_unittest.o gtest_main.a
+NextDate_verifier_pathtest : NextDate_verifier.o NextDate_verifier_pathtest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 
