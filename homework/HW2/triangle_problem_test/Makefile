@@ -30,7 +30,7 @@ CXXFLAGS += -g -Wall -Wextra -pthread
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = sample1_unittest triangle_verifier_unittest
+TESTS = sample1_unittest triangle_verifier_pathtest
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -76,11 +76,11 @@ gtest_main.a : gtest-all.o gtest_main.o
 triangle_verifier.o : $(USER_DIR)/triangle_verifier.cpp $(USER_DIR)/triangle_verifier.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/triangle_verifier.cpp
 
-triangle_verifier_unittest.o : $(USER_DIR)/triangle_verifier_unittest.cpp \
+triangle_verifier_pathtest.o : $(USER_DIR)/triangle_verifier_pathtest.cpp \
                      $(USER_DIR)/triangle_verifier.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/triangle_verifier_unittest.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/triangle_verifier_pathtest.cpp
 
-triangle_verifier_unittest : triangle_verifier.o triangle_verifier_unittest.o gtest_main.a
+triangle_verifier_pathtest : triangle_verifier.o triangle_verifier_pathtest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 
