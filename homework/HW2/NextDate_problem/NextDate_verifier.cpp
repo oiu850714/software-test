@@ -1,6 +1,8 @@
 #include "NextDate_verifier.h"
 
 Date NextDate_verifier(const Date &d) {
+
+  // 1st "big" if, valid input test
   if (d.year < 1812 || d.year > 2012)
     return DATE_INVALID;
   if (d.month < 1 || d.month > 12)
@@ -8,6 +10,7 @@ Date NextDate_verifier(const Date &d) {
   if (d.day < 1 || d.day > 31)
     return DATE_INVALID;
 
+  // 2st if, switch
   int days_per_month = 0;
   switch (d.month) {
   case 1:
@@ -27,6 +30,8 @@ Date NextDate_verifier(const Date &d) {
     break;
   // 28 or 29 days
   case 2:
+
+    // 3rd if, check fab
     if (d.year % 4 != 0)
       days_per_month = 28;
     else if (d.year % 100 != 0)
@@ -39,6 +44,7 @@ Date NextDate_verifier(const Date &d) {
     break;
   }
 
+  // 4th if, check day
   if (d.day <= days_per_month - 1) {
     return Date(d.year, d.month, d.day + 1);
   } else if (d.day == days_per_month) {
