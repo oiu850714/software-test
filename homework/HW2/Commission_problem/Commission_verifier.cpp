@@ -3,6 +3,8 @@
 Commission Commission_verifier(const int Locks, const int Stocks,
                                const int Barrels) {
   const int LockPrice = 45, StockPrice = 30, BarrelPrice = 25;
+
+  // 1st "big" if to check valid input
   if (Locks < 1 || Locks > 70)
     return Commission(-1, -1);
   if (Stocks < 1 || Stocks > 80)
@@ -12,6 +14,8 @@ Commission Commission_verifier(const int Locks, const int Stocks,
 
   int sales = Locks * LockPrice + Stocks * StockPrice + Barrels * BarrelPrice;
   double commission = 0;
+
+  // 2dn if to check sales
   if (sales > 1800) {
     commission = 0.1 * 1000;
     commission += 0.15 * 800;
