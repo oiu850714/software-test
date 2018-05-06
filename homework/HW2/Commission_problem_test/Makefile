@@ -26,11 +26,11 @@ SAMPLE_DIR = ../../../samples
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
-CXXFLAGS += -g -Wall -Wextra -pthread
+CXXFLAGS += -g -std=c++17 -Wall -Wextra -pthread
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = sample1_unittest Commission_verifier_unittest
+TESTS = sample1_unittest Commission_verifier_pathtest
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -76,11 +76,11 @@ gtest_main.a : gtest-all.o gtest_main.o
 Commission_verifier.o : $(USER_DIR)/Commission_verifier.cpp $(USER_DIR)/Commission_verifier.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Commission_verifier.cpp
 
-Commission_verifier_unittest.o : $(USER_DIR)/Commission_verifier_unittest.cpp \
+Commission_verifier_pathtest.o : $(USER_DIR)/Commission_verifier_pathtest.cpp \
                      $(USER_DIR)/Commission_verifier.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Commission_verifier_unittest.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/Commission_verifier_pathtest.cpp
 
-Commission_verifier_unittest : Commission_verifier.o Commission_verifier_unittest.o gtest_main.a
+Commission_verifier_pathtest : Commission_verifier.o Commission_verifier_pathtest.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 
