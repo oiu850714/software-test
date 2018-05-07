@@ -26,7 +26,7 @@ SAMPLE_DIR = ../../../samples
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
-CXXFLAGS += -std=c++17 -g -Wall -Wextra -pthread
+CXXFLAGS += -std=c++17 -g -Wall -Wextra -pthread -fprofile-arcs -ftest-coverage
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
