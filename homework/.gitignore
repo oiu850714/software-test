@@ -6,4 +6,5 @@
 *pathtest
 *pathtest.o
 
-*.gcno
+*gtest*
+
