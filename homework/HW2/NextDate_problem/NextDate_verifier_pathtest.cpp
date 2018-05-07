@@ -86,6 +86,11 @@ TEST(NextDateVerifier, MCDC) {
   // 月底，非 12 月跟 12 月
   ASSERT_EQ(Date(2000, 07, 01), NextDate_verifier(Date(2000, 06, 30)));
   ASSERT_EQ(Date(2001, 01, 01), NextDate_verifier(Date(2000, 12, 31)));
+
+  // 有些 case 沒測到...
+  ASSERT_EQ(Date(1904, 02, 29), NextDate_verifier(Date(1904, 02, 28)));
+  ASSERT_EQ(Date(1900, 03, 01), NextDate_verifier(Date(1900, 02, 28)));
+  ASSERT_EQ(DATE_INVALID, NextDate_verifier(Date(1900, 06, 31)));
 }
 
 } // namespace
