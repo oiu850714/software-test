@@ -6,5 +6,6 @@
 *pathtest
 *pathtest.o
 
-*gtest*
-
+*.gcov
+*.gcno
+*.gcda
