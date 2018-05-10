@@ -12,6 +12,15 @@ script:
   - ./homework/HW1/triangle_problem_test/triangle_verifier_unittest
   - ./homework/HW1/NextDate_problem_test/NextDate_verifier_unittest
   - ./homework/HW1/Commission_problem_test/Commission_verifier_unittest
+  - cd homework/HW1/triangle_problem_test/
+  - gcov triangle_verifier.cpp
+  - cd -
+  - /homework/HW1/NextDate_problem_test/
+  - gcov NextDate_verifier.cpp
+  - cd -
+  - cd -/homework/HW1/Commission_problem_test/
+  - gcov Commission_verifier.cpp
+  - cd -
 branches:
   only:
     - master
