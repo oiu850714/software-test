@@ -18,7 +18,7 @@ script:
   - cd homework/HW1/NextDate_problem_test/
   - gcov NextDate_verifier.cpp
   - cd -
-  - cd -homework/HW1/Commission_problem_test/
+  - cd homework/HW1/Commission_problem_test/
   - gcov Commission_verifier.cpp
   - cd -
 branches:
