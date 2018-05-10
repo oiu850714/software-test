@@ -1,6 +1,8 @@
 # Software Testing
 
 ## HW1
+[![codecov](https://codecov.io/gh/oiu850714/software-test/branch/master/graph/badge.svg)](https://codecov.io/gh/oiu850714/software-test)
+
 * markdown note: `homework/HW1/HW1 - note.md`
 * doc: `homework/HW1/Software Testing HW1.docx`
 
