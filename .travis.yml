@@ -3,6 +3,8 @@ os:
   - linux
 compiler:
   - g++
+install:
+  - sudo pip install codecov
 script:
   - make -C homework/HW1/triangle_problem_test
   - make -C homework/HW1/NextDate_problem_test
@@ -13,3 +15,6 @@ script:
 branches:
   only:
     - master
+
+after_success:
+  - codecov -t 52e56ebb-ca11-48c8-bc59-ef634d951d12 -X gcov
