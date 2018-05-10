@@ -1,0 +1,15 @@
+language: cpp
+os:
+  - linux
+compiler:
+  - g++
+script:
+  - sh 'make -C homework/HW1/triangle_problem_test'
+  - sh 'make -C homework/HW1/NextDate_problem_test'
+  - sh 'make -C homework/HW1/Commission_problem_test'
+  - 'homework/HW1/triangle_problem_test/triangle_verifier_unittest'
+  - 'homework/HW1/NextDate_problem_test/NextDate_verifier_unittest'
+  - 'homework/HW1/Commission_problem_test/Commission_verifier_unittest'
+branches:
+  only:
+    - master
