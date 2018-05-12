@@ -22,3 +22,27 @@
     * after `make`, run `Commission_verifier_unittest`
 
 ### Add Jenkinsfile  
+
+## HW2
+
+* markdown note: `homework/HW2/HW2 - note.md`
+* doc: `homework/HW2/Software Testing HW2.docx`
+
+### Triangle Problem
+* feature code and test code: `homework/HW2/triangle_problem/`
+* Makefile to build test: `homework/HW2/triangle_problem_test/`
+    * after `make`, run `triangle_verifier_pathtest`
+    * and `gcov triangle_verifier.cpp -b` 
+
+### NextDate Problem
+* feature code and test code: `homework/HW2/NextDate_problem/`
+* Makefile to build test: `homework/HW2/NextDate_problem_test/`
+    * after `make`, run `Nextdate_verifier_pathtest`
+    * and `gcov NextDate_verifier.cpp -b`
+
+### Commission Problem
+* feature code and test code: `homework/HW2/Commission_problem/`
+* Makefile to build test: `homework/HW2/Commission_problem_test/`
+    * after `make`, run `Commission_verifier_pathtest`
+    * and `gcov Commission_verifier.cpp -b`
+
