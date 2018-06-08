@@ -799,4 +799,41 @@ TEST_F(LargeIntegerConversionTest, OperatorDWORD){
   EXPECT_EQ(static_cast<DWORD>(L1), 0xCCDDFFFF);
 }
 
+
+TEST(LargeIntegerAssignmentTest, CopyAssignment){
+  LargeInteger<6400> L1, L2;
+  L2.SetFromString("9487555666000AAAFFFFBBBBBB", 16);
+
+  L1 = L2;
+
+  EXPECT_EQ(L1, L2);
+
+  // case for self assignment
+  L1 = L1;
+  EXPECT_EQ(L1, L1);
+}
+
+TEST(LargeIntegerAssignmentTest, MoveAssignment){
+  LargeInteger<6400> L1, L2, L3;
+  L2.SetFromString("9487555666000AAAFFFFBBBBBB", 16);
+
+  L3 = L2;
+  L1 = std::move(L2);
+
+  EXPECT_EQ(L2.GetInternalBuffer(), nullptr);
+  EXPECT_EQ(L1, L3);
+
+  // case for self-assignment
+  L3 = std::move(L3);
+  EXPECT_EQ(L3, L3);
+  EXPECT_NE(L3.GetInternalBuffer(), nullptr);
+}
+
+TEST(LargeIntegerAssignmentTest, AssignFromQWORD){
+  LargeInteger<6400> L1;
+  QWORD Q1 = 0x66668888;
+  L1 = Q1;
+  EXPECT_EQ(L1, Q1);
+}
+
 } // namespace
