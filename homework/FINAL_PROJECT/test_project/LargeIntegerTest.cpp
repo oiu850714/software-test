@@ -766,5 +766,37 @@ TEST_F(LargeIntegerComparisonOperatorTest, BiggerAndLessThanOrEqualToOperator){
   EXPECT_FALSE(L2 > L1);
 }
 
+class LargeIntegerConversionTest : public testing::Test
+{
+protected:
+  
+  // naming convention: L_<BitLength>_<value>_<radix>
+  string s1 = "AABBCCDDAABBCCDDFFFF";
+  string sTrue = "1";
+  string sFalse = "0";
+  
+  int radix = 16;
+  LargeInteger<6400> L1, LTrue, LFalse;
+
+  virtual void SetUp(){
+    L1.SetFromString(s1.c_str(), radix);
+    LTrue.SetFromString(sTrue.c_str(), radix);
+    LFalse.SetFromString(sFalse.c_str(), radix);
+  }
+};
+
+TEST_F(LargeIntegerConversionTest, OperatorBool){
+  EXPECT_TRUE(L1);
+  EXPECT_TRUE(LTrue);
+  EXPECT_FALSE(LFalse);
+}
+
+TEST_F(LargeIntegerConversionTest, OperatorQWORD){
+  EXPECT_EQ(static_cast<QWORD>(L1), 0xCCDDAABBCCDDFFFF);
+}
+
+TEST_F(LargeIntegerConversionTest, OperatorDWORD){
+  EXPECT_EQ(static_cast<DWORD>(L1), 0xCCDDFFFF);
+}
 
 } // namespace
