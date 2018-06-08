@@ -13,12 +13,6 @@ using std::endl;
 namespace
 {
 
-
-TEST(LargeIntegerCoverageLOL, LOL){
-  //LargeInteger<6401> L1(9487);
-}
-
-
 class LargeIntegerConstructorTest : public testing::Test
 {
 protected:
@@ -1040,7 +1034,7 @@ TEST(LargeIntegerGetBufferSize, GetBufferSize){
   EXPECT_EQ(L6.GetBufferSize(),  16);
 }
 
-TEST(LargeIntegerGetRawDataTest, GetRawData){
+TEST(LargeIntegerGetRawDataTest, GetAndSetRawData){
   // These APIs do not check boundary
   LargeInteger<6400> L1;
   QWORD buffer1[100], buffer2[100];
