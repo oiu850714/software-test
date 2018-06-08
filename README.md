@@ -46,3 +46,14 @@
     * after `make`, run `Commission_verifier_pathtest`
     * and `gcov Commission_verifier.cpp -b`
 
+## FINAL PROJECT
+
+* markdown note: `homework/FINAL_PROJECT/Software Testing Final Project.md`
+* doc: `homework/FINAL_PROJECT/Software Testing Final Project.docx`
+
+### LargeIntegerTest
+* feature code and test code: `homework/FINAL_PROJECT/test_project/`
+* Makefile to build test: `homework/FINAL_PROJECT/test_code/`
+    * after `make`, run `LargeIntegerTest`
+    * and `gcov LargeIntegerTest -abc` 
+
