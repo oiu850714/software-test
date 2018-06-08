@@ -220,4 +220,496 @@ TEST(LargeIntegerSetFromStringAndConvertToStringTest, InputCauseThrow){
   
 }
 
+
+TEST(LargeIntegerBitwiseOperatorTest, LeftShiftOperator){
+  string s1 = "1";
+  LargeInteger<6400> L;
+  int radix = 16;
+
+  // nonzero input, normal shift case and overflow shift case
+  L.SetFromString(s1.c_str(), radix);
+  L <<= 0;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "1");
+  L <<= 1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "2");
+  L <<= 2;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "8");
+  L <<= 1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "10");
+  L <<= 40;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "100000000000");
+  L <<= 6400;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+
+  // zero input, normal shift case and overflow shift case; result LargeInteger is 0
+  string s2 = "0";
+  L.SetFromString(s2.c_str(), radix);
+  L <<= 0;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L <<= 1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L <<= 2;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L <<= 1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L <<= 40;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L <<= 6400;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+
+  // negative shift
+  string s3 = "10000000";
+  L.SetFromString(s3.c_str(), radix);
+  L <<= 0;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "10000000");
+  L <<= -1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "8000000");
+  L <<= -2;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "2000000");
+  L <<= -1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "1000000");
+  L <<= -24;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "1");
+  L <<= -1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+
+
+  // case: template nontype parameter is not multiple of 64
+  LargeInteger<6401> L_BitLengthNotMultipleof64;
+  // nonzero input, normal shift case and overflow shift case
+  L_BitLengthNotMultipleof64.SetFromString(s1.c_str(), radix);
+  L_BitLengthNotMultipleof64 <<= 0;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "1");
+  L_BitLengthNotMultipleof64 <<= 1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "2");
+  L_BitLengthNotMultipleof64 <<= 2;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "8");
+  L_BitLengthNotMultipleof64 <<= 1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "10");
+  L_BitLengthNotMultipleof64 <<= 40;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "100000000000");
+  
+  // if nontype parameter is 6401, then actual bits in LargeInteger is 6464
+  L_BitLengthNotMultipleof64 <<= 6464;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+
+  // zero input, normal shift case and overflow shift case; result LargeInteger is 0
+  L_BitLengthNotMultipleof64.SetFromString(s2.c_str(), radix);
+  L_BitLengthNotMultipleof64 <<= 0;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 2;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 40;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 6400-44;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+
+  // negative shift
+  L_BitLengthNotMultipleof64.SetFromString(s3.c_str(), radix);
+  L_BitLengthNotMultipleof64 <<= 0;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "10000000");
+  L_BitLengthNotMultipleof64 <<= -1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "8000000");
+  L_BitLengthNotMultipleof64 <<= -2;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "2000000");
+  L_BitLengthNotMultipleof64 <<= -1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "1000000");
+  L_BitLengthNotMultipleof64 <<= -24;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "1");
+  L_BitLengthNotMultipleof64 <<= -1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+
+}
+
+
+TEST(LargeIntegerBitwiseOperatorTest, RightShiftOperator){
+  string s1 = "1000";
+  LargeInteger<6400> L;
+  int radix = 16;
+
+  // nonzero input, normal shift case; right shift never overflow
+  L.SetFromString(s1.c_str(), radix);
+  L >>= 0;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "1000");
+  L >>= 1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "800");
+  L >>= 2;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "200");
+  L >>= 1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "100");
+  L >>= 40;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L >>= 64;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+
+  // zero input, normal shift case and overflow shift case; result LargeInteger is 0
+  string s2 = "0";
+  L.SetFromString(s2.c_str(), radix);
+  L >>= 0;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L >>= 1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L >>= 2;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L >>= 1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L >>= 40;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+  L >>= 64;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+
+  // negative shift
+  string s3 = "1";
+  L.SetFromString(s3.c_str(), radix);
+  L >>= 0;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "1");
+  L >>= -1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "2");
+  L >>= -2;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "8");
+  L >>= -1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "10");
+  L >>= -24;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "10000000");
+  L >>= -1;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "20000000");
+  L >>= -6400;
+  EXPECT_EQ(string(L.ConvertToString(radix)), "0");
+
+  // case: template nontype parameter is not multiple of 64
+  LargeInteger<6401> L_BitLengthNotMultipleof64;
+  // nonzero input, normal shift case; right shift never overflow
+  L_BitLengthNotMultipleof64.SetFromString(s1.c_str(), radix);
+  L_BitLengthNotMultipleof64 >>= 0;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "1000");
+  L_BitLengthNotMultipleof64 >>= 1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "800");
+  L_BitLengthNotMultipleof64 >>= 2;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "200");
+  L_BitLengthNotMultipleof64 >>= 1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "100");
+  L_BitLengthNotMultipleof64 >>= 40;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 64;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+
+  // zero input, normal shift case and overflow shift case; result LargeInteger is 0
+  L_BitLengthNotMultipleof64.SetFromString(s2.c_str(), radix);
+  L_BitLengthNotMultipleof64 >>= 0;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 2;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 40;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 64;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+
+  // negative shift
+  L_BitLengthNotMultipleof64.SetFromString(s3.c_str(), radix);
+  L_BitLengthNotMultipleof64 >>= 0;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "1");
+  L_BitLengthNotMultipleof64 >>= -1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "2");
+  L_BitLengthNotMultipleof64 >>= -2;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "8");
+  L_BitLengthNotMultipleof64 >>= -1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "10");
+  L_BitLengthNotMultipleof64 >>= -24;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "10000000");
+  L_BitLengthNotMultipleof64 >>= -1;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "20000000");
+  L_BitLengthNotMultipleof64 >>= -6440;
+  EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
+
+}
+
+TEST(LargeIntegerBitwiseOperatorTest, AndOperator){
+  string s1 = "0101";
+  string s2 = "0011";
+  LargeInteger<6400> L1, L2;
+  int radix = 2;
+  L1.SetFromString(s1.c_str(), radix);
+  L2.SetFromString(s2.c_str(), radix);
+  
+  L1 &= L2;
+
+  // truncate leading zeros
+  EXPECT_EQ(string(L1.ConvertToString(radix)), "1");
+
+  L1.SetFromString("10001", radix);
+  L2.SetFromString("10011", radix);
+
+  // test case that has no leading zero
+  L1 &= L2;
+  EXPECT_EQ(string(L1.ConvertToString(radix)), "10001");
+}
+
+TEST(LargeIntegerBitwiseOperatorTest, OrOperator){
+  string s1 = "0101";
+  string s2 = "0011";
+  LargeInteger<6400> L1, L2;
+  int radix = 2;
+  L1.SetFromString(s1.c_str(), radix);
+  L2.SetFromString(s2.c_str(), radix);
+  
+  L1 |= L2;
+
+  // truncate leading zeros
+  EXPECT_EQ(string(L1.ConvertToString(radix)), "111");
+
+  L1.SetFromString("10101", radix);
+  L2.SetFromString("10011", radix);
+
+  // test case that has no leading zero
+  L1 |= L2;
+  EXPECT_EQ(string(L1.ConvertToString(radix)), "10111");
+}
+
+TEST(LargeIntegerBitwiseOperatorTest, XOrOperator){
+  string s1 = "0101";
+  string s2 = "0011";
+  LargeInteger<6400> L1, L2;
+  int radix = 2;
+  L1.SetFromString(s1.c_str(), radix);
+  L2.SetFromString(s2.c_str(), radix);
+  
+  L1 ^= L2;
+
+  // truncate leading zeros
+  EXPECT_EQ(string(L1.ConvertToString(radix)), "110");
+
+  L1.SetFromString("10101", radix);
+  L2.SetFromString("10011", radix);
+
+  // test case that has no leading zero
+  L1 ^= L2;
+  EXPECT_EQ(string(L1.ConvertToString(radix)), "110");
+}
+
+TEST(LargeIntegerBitwiseOperatorTest, NotOperator){
+  string s1 = "1101";
+  string s2 = "0011";
+  string s3 = "1111111111111111111111111111111111111111111111111111111111111111";
+  LargeInteger<6400> L1, L2, L3;
+  int radix = 2;
+  L1.SetFromString(s1.c_str(), radix);
+  L2.SetFromString(s2.c_str(), radix);
+  L3.SetFromString(s3.c_str(), radix);
+
+  EXPECT_EQ(string((~~L1).ConvertToString(radix)), "1101");
+  EXPECT_EQ(string((~~L2).ConvertToString(radix)), "11");
+  EXPECT_EQ(string((~~L3).ConvertToString(radix)), "1111111111111111111111111111111111111111111111111111111111111111");
+}
+
+TEST(LargeIntegerBitwiseOperatorTest, TempLeftShiftOperator){
+  string s1 = "1";
+  LargeInteger<6400> L;
+  int radix = 16;
+
+  // nonzero input, normal shift case and overflow shift case
+  L.SetFromString(s1.c_str(), radix);
+  EXPECT_EQ(string((L << 0).ConvertToString(radix)), "1");
+  L <<= 0;
+  EXPECT_EQ(string((L << 1).ConvertToString(radix)), "2");
+  L <<= 1;
+  EXPECT_EQ(string((L << 2).ConvertToString(radix)), "8");
+  L <<= 2;
+  EXPECT_EQ(string((L << 1).ConvertToString(radix)), "10");
+  L <<= 1;
+  EXPECT_EQ(string((L << 40).ConvertToString(radix)), "100000000000");
+  L <<= 40;
+  EXPECT_EQ(string((L << 6400 - 44).ConvertToString(radix)), "0");
+  L <<= 6400-44;
+
+  // zero input, normal shift case and overflow shift case; result LargeInteger is 0
+  string s2 = "0";
+  L.SetFromString(s2.c_str(), radix);
+  EXPECT_EQ(string((L << 0).ConvertToString(radix)), "0");
+  L <<= 0;
+  EXPECT_EQ(string((L << 1).ConvertToString(radix)), "0");
+  L <<= 1;
+  EXPECT_EQ(string((L << 2).ConvertToString(radix)), "0");
+  L <<= 2;
+  EXPECT_EQ(string((L << 1).ConvertToString(radix)), "0");
+  L <<= 1;
+  EXPECT_EQ(string((L << 40).ConvertToString(radix)), "0");
+  L <<= 40;
+  EXPECT_EQ(string((L << 6400 - 44).ConvertToString(radix)), "0");
+  L <<= 6400-44;
+
+  // negative shift
+  string s3 = "10000000";
+  L.SetFromString(s3.c_str(), radix);
+  EXPECT_EQ(string((L << 0).ConvertToString(radix)), "10000000");
+  L <<= 0;
+  EXPECT_EQ(string((L << -1).ConvertToString(radix)), "8000000");
+  L <<= -1;
+  EXPECT_EQ(string((L << -2).ConvertToString(radix)), "2000000");
+  L <<= -2;
+  EXPECT_EQ(string((L << -1).ConvertToString(radix)), "1000000");
+  L <<= -1;
+  EXPECT_EQ(string((L << -24).ConvertToString(radix)), "1");
+  L <<= -24;
+  EXPECT_EQ(string((L << -1).ConvertToString(radix)), "0");
+  L <<= -1;
+
+
+  // case: template nontype parameter is not multiple of 64
+  LargeInteger<6401> L_BitLengthNotMultipleof64;
+  // nonzero input, normal shift case and overflow shift case
+  L_BitLengthNotMultipleof64.SetFromString(s1.c_str(), radix);
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 0).ConvertToString(radix)), "1");
+  L_BitLengthNotMultipleof64 <<= 0;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 1).ConvertToString(radix)), "2");
+  L_BitLengthNotMultipleof64 <<= 1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 2).ConvertToString(radix)), "8");
+  L_BitLengthNotMultipleof64 <<= 2;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 1).ConvertToString(radix)), "10");
+  L_BitLengthNotMultipleof64 <<= 1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 40).ConvertToString(radix)), "100000000000");
+  L_BitLengthNotMultipleof64 <<= 40;
+  
+  // if nontype parameter is 6401, then actual bits in LargeInteger is 6464
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 6464).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 6464;
+
+  // zero input, normal shift case and overflow shift case; result LargeInteger is 0
+  L_BitLengthNotMultipleof64.SetFromString(s2.c_str(), radix);
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 0).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 0;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 1).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 2).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 2;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 1).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 40).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 40;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 6400-44).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= 6400-44;
+
+  // negative shift
+  L_BitLengthNotMultipleof64.SetFromString(s3.c_str(), radix);
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << 0).ConvertToString(radix)), "10000000");
+  L_BitLengthNotMultipleof64 <<= 0;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << -1).ConvertToString(radix)), "8000000");
+  L_BitLengthNotMultipleof64 <<= -1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << -2).ConvertToString(radix)), "2000000");
+  L_BitLengthNotMultipleof64 <<= -2;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << -1).ConvertToString(radix)), "1000000");
+  L_BitLengthNotMultipleof64 <<= -1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << -24).ConvertToString(radix)), "1");
+  L_BitLengthNotMultipleof64 <<= -24;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 << -1).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 <<= -1;
+
+}
+
+
+TEST(LargeIntegerBitwiseOperatorTest, TempRightShiftOperator){
+  string s1 = "1000";
+  LargeInteger<6400> L;
+  int radix = 16;
+
+  // nonzero input, normal shift case; right shift never overflow
+  L.SetFromString(s1.c_str(), radix);
+  EXPECT_EQ(string((L >> 0).ConvertToString(radix)), "1000");
+  L >>= 0;
+  EXPECT_EQ(string((L >> 1).ConvertToString(radix)), "800");
+  L >>= 1;
+  EXPECT_EQ(string((L >> 2).ConvertToString(radix)), "200");
+  L >>= 2;
+  EXPECT_EQ(string((L >> 1).ConvertToString(radix)), "100");
+  L >>= 1;
+  EXPECT_EQ(string((L >> 40).ConvertToString(radix)), "0");
+  L >>= 40;
+
+  // zero input, normal shift case and overflow shift case; result LargeInteger is 0
+  string s2 = "0";
+  L.SetFromString(s2.c_str(), radix);
+  EXPECT_EQ(string((L >> 0).ConvertToString(radix)), "0");
+  L >>= 0;
+  EXPECT_EQ(string((L >> 1).ConvertToString(radix)), "0");
+  L >>= 1;
+  EXPECT_EQ(string((L >> 2).ConvertToString(radix)), "0");
+  L >>= 2;
+  EXPECT_EQ(string((L >> 1).ConvertToString(radix)), "0");
+  L >>= 1;
+  EXPECT_EQ(string((L >> 40).ConvertToString(radix)), "0");
+  L >>= 40;
+
+  // negative shift
+  string s3 = "1";
+  L.SetFromString(s3.c_str(), radix);
+  EXPECT_EQ(string((L >> 0).ConvertToString(radix)), "1");
+  L >>= 0;
+  EXPECT_EQ(string((L >> -1).ConvertToString(radix)), "2");
+  L >>= -1;
+  EXPECT_EQ(string((L >> -2).ConvertToString(radix)), "8");
+  L >>= -2;
+  EXPECT_EQ(string((L >> -1).ConvertToString(radix)), "10");
+  L >>= -1;
+  EXPECT_EQ(string((L >> -24).ConvertToString(radix)), "10000000");
+  L >>= -24;
+  EXPECT_EQ(string((L >> -1).ConvertToString(radix)), "20000000");
+  L >>= -1;
+  EXPECT_EQ(string((L >> -6400).ConvertToString(radix)), "0");
+  L >>= -6400;
+
+  // case: template nontype parameter is not multiple of 64
+  LargeInteger<6401> L_BitLengthNotMultipleof64;
+  // nonzero input, normal shift case; right shift never overflow
+  L_BitLengthNotMultipleof64.SetFromString(s1.c_str(), radix);
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 0).ConvertToString(radix)), "1000");
+  L_BitLengthNotMultipleof64 >>= 0;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 1).ConvertToString(radix)), "800");
+  L_BitLengthNotMultipleof64 >>= 1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 2).ConvertToString(radix)), "200");
+  L_BitLengthNotMultipleof64 >>= 2;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 1).ConvertToString(radix)), "100");
+  L_BitLengthNotMultipleof64 >>= 1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 40).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 40;
+
+  // zero input, normal shift case and overflow shift case; result LargeInteger is 0
+  L_BitLengthNotMultipleof64.SetFromString(s2.c_str(), radix);
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 0).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 0;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 1).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 2).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 2;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 1).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 40).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= 40;
+
+  // negative shift
+  L_BitLengthNotMultipleof64.SetFromString(s3.c_str(), radix);
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> 0).ConvertToString(radix)), "1");
+  L_BitLengthNotMultipleof64 >>= 0;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> -1).ConvertToString(radix)), "2");
+  L_BitLengthNotMultipleof64 >>= -1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> -2).ConvertToString(radix)), "8");
+  L_BitLengthNotMultipleof64 >>= -2;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> -1).ConvertToString(radix)), "10");
+  L_BitLengthNotMultipleof64 >>= -1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> -24).ConvertToString(radix)), "10000000");
+  L_BitLengthNotMultipleof64 >>= -24;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> -1).ConvertToString(radix)), "20000000");
+  L_BitLengthNotMultipleof64 >>= -1;
+  EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> -6440).ConvertToString(radix)), "0");
+  L_BitLengthNotMultipleof64 >>= -6440;
+
+}
+
+
 } // namespace
