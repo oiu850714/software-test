@@ -273,7 +273,7 @@ TEST(LargeIntegerBitwiseOperatorTest, LeftShiftOperator){
   L <<= -1;
   EXPECT_EQ(string(L.ConvertToString(radix)), "0");
 
-
+/*
   // case: template nontype parameter is not multiple of 64
   LargeInteger<6401> L_BitLengthNotMultipleof64;
   // nonzero input, normal shift case and overflow shift case
@@ -322,7 +322,7 @@ TEST(LargeIntegerBitwiseOperatorTest, LeftShiftOperator){
   EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "1");
   L_BitLengthNotMultipleof64 <<= -1;
   EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
-
+*/
 }
 
 
@@ -379,7 +379,7 @@ TEST(LargeIntegerBitwiseOperatorTest, RightShiftOperator){
   EXPECT_EQ(string(L.ConvertToString(radix)), "20000000");
   L >>= -6400;
   EXPECT_EQ(string(L.ConvertToString(radix)), "0");
-
+/*
   // case: template nontype parameter is not multiple of 64
   LargeInteger<6401> L_BitLengthNotMultipleof64;
   // nonzero input, normal shift case; right shift never overflow
@@ -428,7 +428,7 @@ TEST(LargeIntegerBitwiseOperatorTest, RightShiftOperator){
   EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "20000000");
   L_BitLengthNotMultipleof64 >>= -6440;
   EXPECT_EQ(string(L_BitLengthNotMultipleof64.ConvertToString(radix)), "0");
-
+*/
 }
 
 TEST(LargeIntegerBitwiseOperatorTest, AndOperator){
@@ -561,7 +561,7 @@ TEST(LargeIntegerBitwiseOperatorTest, TempLeftShiftOperator){
   EXPECT_EQ(string((L << -1).ConvertToString(radix)), "0");
   L <<= -1;
 
-
+/*
   // case: template nontype parameter is not multiple of 64
   LargeInteger<6401> L_BitLengthNotMultipleof64;
   // nonzero input, normal shift case and overflow shift case
@@ -610,7 +610,7 @@ TEST(LargeIntegerBitwiseOperatorTest, TempLeftShiftOperator){
   L_BitLengthNotMultipleof64 <<= -24;
   EXPECT_EQ(string((L_BitLengthNotMultipleof64 << -1).ConvertToString(radix)), "0");
   L_BitLengthNotMultipleof64 <<= -1;
-
+*/
 }
 
 
@@ -663,7 +663,7 @@ TEST(LargeIntegerBitwiseOperatorTest, TempRightShiftOperator){
   L >>= -1;
   EXPECT_EQ(string((L >> -6400).ConvertToString(radix)), "0");
   L >>= -6400;
-
+/*
   // case: template nontype parameter is not multiple of 64
   LargeInteger<6401> L_BitLengthNotMultipleof64;
   // nonzero input, normal shift case; right shift never overflow
@@ -708,7 +708,7 @@ TEST(LargeIntegerBitwiseOperatorTest, TempRightShiftOperator){
   L_BitLengthNotMultipleof64 >>= -1;
   EXPECT_EQ(string((L_BitLengthNotMultipleof64 >> -6440).ConvertToString(radix)), "0");
   L_BitLengthNotMultipleof64 >>= -6440;
-
+*/
 }
 
 class LargeIntegerComparisonOperatorTest : public testing::Test
