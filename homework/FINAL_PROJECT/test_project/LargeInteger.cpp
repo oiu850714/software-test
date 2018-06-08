@@ -145,7 +145,7 @@ namespace{
 template<size_t BitLength>
 LargeInteger<BitLength>::LargeInteger(){
 
-	NumberCell = reinterpret_cast<QWORD*>( operator new ( QWORDLength*8 ) );
+	NumberCell = new QWORD[ QWORDLength*8 ]();
 
 	}
 
@@ -155,7 +155,7 @@ LargeInteger<BitLength>::LargeInteger(){
 template<size_t BitLength>
 LargeInteger<BitLength>::LargeInteger(const LargeInteger<BitLength>& RHS){
 
-	NumberCell = reinterpret_cast<QWORD*>( operator new ( QWORDLength*8 ) );
+	NumberCell = new QWORD[ QWORDLength*8 ]();
 
 	for(int Index=0; Index<QWORDLength; Index++)
 		NumberCell[Index]=RHS.NumberCell[Index];
@@ -179,7 +179,7 @@ LargeInteger<BitLength>::LargeInteger(LargeInteger<BitLength>&& RHS){
 template<size_t BitLength>
 LargeInteger<BitLength>::LargeInteger(QWORD Number){
 	
-	NumberCell = reinterpret_cast<QWORD*>( operator new ( QWORDLength*8 ) );
+	NumberCell = new QWORD[ QWORDLength*8 ]();
 
 	NumberCell[0]=Number;
 
@@ -198,7 +198,7 @@ LargeInteger<ThisBitLength>::LargeInteger(const LargeInteger<RHSBitLength>& RHS)
 	int Index=0, CopyEdge;
 
 
-	NumberCell = reinterpret_cast<QWORD*>( operator new ( QWORDLength*8 ) );
+	NumberCell = new QWORD[ QWORDLength*8 ]();
 
 	// Choose the smaller.
 	if( QWORDLength > LargeInteger<RHSBitLength>::QWORDLength )
@@ -227,7 +227,7 @@ LargeInteger<ThisBitLength>::LargeInteger(const LargeInteger<RHSBitLength>& RHS)
 template<size_t BitLength>
 LargeInteger<BitLength>::~LargeInteger(){
 
-	operator delete (NumberCell);
+	delete NumberCell;
 	NumberCell = 0;
 
 	}
@@ -594,7 +594,7 @@ LargeInteger<BitLength>& LargeInteger<BitLength>::operator=(LargeInteger<BitLeng
 	// Skip self-assignment. Corretness consideration.
 	if( this != &RHS ){
 
-		operator delete (this->NumberCell);
+		delete this->NumberCell;
 		(this->NumberCell) = RHS.NumberCell;
 		RHS.NumberCell     = 0;
 
