@@ -1024,5 +1024,21 @@ TEST(LargeIntegerGlobalArithmeticOperatorTest, Xor){
   EXPECT_EQ(LargeInteger<6400>(L1) ^ LargeInteger<6400>(L2), L3);
 }
 
+TEST(LargeIntegerGetBufferSize, GetBufferSize){
+  LargeInteger<6400> L1;
+  LargeInteger<0>    L2;
+  LargeInteger<1>    L3;
+  LargeInteger<65>   L4;
+  LargeInteger<127>  L5;
+  LargeInteger<128>  L6;
+
+  EXPECT_EQ(L1.GetBufferSize(), 800);
+  EXPECT_EQ(L2.GetBufferSize(),   8);
+  EXPECT_EQ(L3.GetBufferSize(),   8);
+  EXPECT_EQ(L4.GetBufferSize(),  16);
+  EXPECT_EQ(L5.GetBufferSize(),  16);
+  EXPECT_EQ(L6.GetBufferSize(),  16);
+}
+
 
 } // namespace
