@@ -123,4 +123,101 @@ TEST_F(LargeIntegerConstructorTest, ConstructorFromDifferentLength){
   }
 }
 
+TEST(LargeIntegerSetFromStringAndConvertToStringTest, Radix16NormalInput){
+
+  string str1 = "fecdba9876543210";
+  int radix = 16;
+  LargeInteger<6400> L;
+  L.SetFromString(str1.c_str(), radix);
+
+  EXPECT_EQ(string(L.ConvertToString(16)), str1);
+
+  string str2 = "0000000000000000";
+  L.SetFromString(str2.c_str(), radix);
+
+  // truncate leading zeros
+  EXPECT_EQ(string(L.ConvertToString(16)), "0");
+
+  string str3 = "00000000000000000000000000aaa";
+  L.SetFromString(str3.c_str(), radix);
+
+  // truncate leading zeros
+  EXPECT_EQ(string(L.ConvertToString(16)), "aaa");
+}
+
+TEST(LargeIntegerSetFromStringAndConvertToStringTest, RadixNotPowerOf2NormalInput){
+  string str1 = "987654321098765432109876543210";
+  int radix = 10;
+  LargeInteger<6400> L;
+  L.SetFromString(str1.c_str(), radix);
+
+  EXPECT_EQ(string(L.ConvertToString(10)), str1);
+
+  string str2 = "00000000000000000000000000000";
+  L.SetFromString(str2.c_str(), radix);
+
+  // truncate leading zeros
+  EXPECT_EQ(string(L.ConvertToString(10)), "0");
+
+  string str3 = "00000000000000000000000000888";
+  L.SetFromString(str3.c_str(), radix);
+
+  // truncate leading zeros
+  EXPECT_EQ(string(L.ConvertToString(10)), "888");
+
+}
+
+TEST(LargeIntegerSetFromStringAndConvertToStringTest, InputCausingOverflow){
+
+  // L will overflow if it's set from str1
+  // this string need 6400+640 bits, so it will cause LargeInteger<6400> to overflow
+  string str1 = "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbaaaaaaaaaaaaaaaabbbbbbbbbbbbbbbb";
+
+  int radix = 16;
+  LargeInteger<6400> L;
+ 
+  L.SetFromString(str1.c_str(), radix);
+  // L's string representation will not equal to str1
+  EXPECT_NE(string(L.ConvertToString(16)), str1);
+}
+
+TEST(LargeIntegerSetFromStringAndConvertToStringTest, RadixCauseThrow){
+  // throw INVALID_RADIX, type is int
+  string str1 = "0101010101010101";
+
+  LargeInteger<6400> L;
+  
+  int radix = 1;
+  EXPECT_THROW(L.SetFromString(str1.c_str(), radix), int);
+  EXPECT_THROW(L.ConvertToString(radix), int);
+
+  for(radix = 2; radix < 37; radix++){
+    EXPECT_NO_THROW(L.SetFromString(str1.c_str(), radix));
+  }
+
+  EXPECT_THROW(L.SetFromString(str1.c_str(), radix), int);
+  EXPECT_THROW(L.ConvertToString(radix), int);
+}
+
+TEST(LargeIntegerSetFromStringAndConvertToStringTest, InputCauseThrow){
+  // throw ILLEGAL_CHARACTER, type is int
+  string s2 = "01";
+  string s2_throw = "x01";
+  string s16 = "0123456789abcdef";
+  string s16_throw = "0123456789abcdefg";
+
+  string s36 = "0123456789abcdefghijklmnopqrstuvwxyz";
+  string s36_throw = "0123456789abcdefghijklmnopqrstuvwxyz,";
+
+  LargeInteger<6400> L;
+
+  EXPECT_NO_THROW(L.SetFromString(s2.c_str(), 2));
+  EXPECT_THROW(L.SetFromString(s2_throw.c_str(), 2), int);
+  EXPECT_NO_THROW(L.SetFromString(s16.c_str(), 16));
+  EXPECT_THROW(L.SetFromString(s16_throw.c_str(), 16), int);
+  EXPECT_NO_THROW(L.SetFromString(s36.c_str(), 36));
+  EXPECT_THROW(L.SetFromString(s36_throw.c_str(), 36), int);
+  
+}
+
 } // namespace
