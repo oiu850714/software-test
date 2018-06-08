@@ -886,4 +886,143 @@ TEST(LargeIntegerMemberArithmeticOperatorTest, PostfixSub){
   EXPECT_EQ(L1, L2);
 }
 
+
+TEST(LargeIntegerGlobalArithmeticOperatorTest, Add){
+  LargeInteger<6400> L1, L2, L3;
+  string s1 = "ff8887773433f", s2 = "fdaaa1023499", s3 = "10f633187577d8";
+  L1.SetFromString(s1.c_str(), 16);
+  L2.SetFromString(s2.c_str(), 16);
+  L3.SetFromString(s3.c_str(), 16);
+
+
+  // operator+(const LargeInteger<Length>& LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(L1 + L2, L3);
+  // operator+(const LargeInteger<Length>& LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(L1 + LargeInteger<6400>(L2), L3);
+  // operator+(LargeInteger<Length>&&      LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) + L2, L3);
+  // operator+(LargeInteger<Length>&&      LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) + LargeInteger<6400>(L2), L3);
+}
+
+TEST(LargeIntegerGlobalArithmeticOperatorTest, Sub){
+  LargeInteger<6400> L1, L2, L3;
+  string s1 = "ff8887773433f", s2 = "fdaaa1023499", s3 = "efaddd6710ea6";
+  L1.SetFromString(s1.c_str(), 16);
+  L2.SetFromString(s2.c_str(), 16);
+  L3.SetFromString(s3.c_str(), 16);
+
+  // operator-(const LargeInteger<Length>& LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(L1 - L2, L3);
+  // operator-(const LargeInteger<Length>& LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(L1 - LargeInteger<6400>(L2), L3);
+  // operator-(LargeInteger<Length>&&      LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) - L2, L3);
+  // operator-(LargeInteger<Length>&&      LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) - LargeInteger<6400>(L2), L3);
+}
+
+TEST(LargeIntegerGlobalArithmeticOperatorTest, Multiply){
+  LargeInteger<6400> L1, L2, L3;
+  string s1 = "ff8887773433f", s2 = "fdaaa1023499", s3 = "fd343f41d483798d9f309fca7";
+  L1.SetFromString(s1.c_str(), 16);
+  L2.SetFromString(s2.c_str(), 16);
+  L3.SetFromString(s3.c_str(), 16);
+
+  // operator*(const LargeInteger<Length>& LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(L1 * L2, L3);
+  // operator*(const LargeInteger<Length>& LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(L1 * LargeInteger<6400>(L2), L3);
+  // operator*(LargeInteger<Length>&&      LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) * L2, L3);
+  // operator*(LargeInteger<Length>&&      LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) * LargeInteger<6400>(L2), L3);
+}
+
+TEST(LargeIntegerGlobalArithmeticOperatorTest, Div){
+  LargeInteger<6400> L1, L2, L3;
+  string s1 = "ff8887773433f", s2 = "fdaaa1023499", s3 = "10";
+  L1.SetFromString(s1.c_str(), 16);
+  L2.SetFromString(s2.c_str(), 16);
+  L3.SetFromString(s3.c_str(), 16);
+
+  // operator/(const LargeInteger<Length>& LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(L1 / L2, L3);
+  // operator/(const LargeInteger<Length>& LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(L1 / LargeInteger<6400>(L2), L3);
+  // operator/(LargeInteger<Length>&&      LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) / L2, L3);
+  // operator/(LargeInteger<Length>&&      LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) / LargeInteger<6400>(L2), L3);
+}
+
+TEST(LargeIntegerGlobalArithmeticOperatorTest, Mod){
+  LargeInteger<6400> L1, L2, L3;
+  string s1 = "ff8887773433f", s2 = "fdaaa1023499", s3 = "1dde674ff9af";
+  L1.SetFromString(s1.c_str(), 16);
+  L2.SetFromString(s2.c_str(), 16);
+  L3.SetFromString(s3.c_str(), 16);
+
+  // operator%(const LargeInteger<Length>& LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(L1 % L2, L3);
+  // operator%(const LargeInteger<Length>& LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(L1 % LargeInteger<6400>(L2), L3);
+  // operator%(LargeInteger<Length>&&      LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) % L2, L3);
+  // operator%(LargeInteger<Length>&&      LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) % LargeInteger<6400>(L2), L3);
+}
+
+TEST(LargeIntegerGlobalArithmeticOperatorTest, And){
+  LargeInteger<6400> L1, L2, L3;
+  string s1 = "ff8887773433f", s2 = "fdaaa1023499", s3 = "f88821020019";
+  L1.SetFromString(s1.c_str(), 16);
+  L2.SetFromString(s2.c_str(), 16);
+  L3.SetFromString(s3.c_str(), 16);
+
+  // operator%(const LargeInteger<Length>& LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(L1 & L2, L3);
+  // operator%(const LargeInteger<Length>& LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(L1 & LargeInteger<6400>(L2), L3);
+  // operator%(LargeInteger<Length>&&      LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) & L2, L3);
+  // operator%(LargeInteger<Length>&&      LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) & LargeInteger<6400>(L2), L3);
+}
+
+TEST(LargeIntegerGlobalArithmeticOperatorTest, Or){
+  LargeInteger<6400> L1, L2, L3;
+  string s1 = "ff8887773433f", s2 = "fdaaa1023499", s3 = "ffdaaf77377bf";
+  L1.SetFromString(s1.c_str(), 16);
+  L2.SetFromString(s2.c_str(), 16);
+  L3.SetFromString(s3.c_str(), 16);
+
+  // operator|(const LargeInteger<Length>& LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(L1 | L2, L3);
+  // operator|(const LargeInteger<Length>& LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(L1 | LargeInteger<6400>(L2), L3);
+  // operator|(LargeInteger<Length>&&      LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) | L2, L3);
+  // operator|(LargeInteger<Length>&&      LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) | LargeInteger<6400>(L2), L3);
+}
+
+TEST(LargeIntegerGlobalArithmeticOperatorTest, Xor){
+  LargeInteger<6400> L1, L2, L3;
+  string s1 = "ff8887773433f", s2 = "fdaaa1023499", s3 = "f0522d67177a6";
+  L1.SetFromString(s1.c_str(), 16);
+  L2.SetFromString(s2.c_str(), 16);
+  L3.SetFromString(s3.c_str(), 16);
+
+  // operator^(const LargeInteger<Length>& LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(L1 ^ L2, L3);
+  // operator^(const LargeInteger<Length>& LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(L1 ^ LargeInteger<6400>(L2), L3);
+  // operator^(LargeInteger<Length>&&      LHS, const LargeInteger<Length>& RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) ^ L2, L3);
+  // operator^(LargeInteger<Length>&&      LHS, LargeInteger<Length>&&      RHS);
+  EXPECT_EQ(LargeInteger<6400>(L1) ^ LargeInteger<6400>(L2), L3);
+}
+
+
 } // namespace
