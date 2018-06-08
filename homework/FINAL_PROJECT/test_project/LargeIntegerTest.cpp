@@ -1040,5 +1040,18 @@ TEST(LargeIntegerGetBufferSize, GetBufferSize){
   EXPECT_EQ(L6.GetBufferSize(),  16);
 }
 
+TEST(LargeIntegerGetRawDataTest, GetRawData){
+  // These APIs do not check boundary
+  LargeInteger<6400> L1;
+  QWORD buffer1[100], buffer2[100];
+  for(int i = 0; i < 100; i++){
+    buffer1[i] = i;
+  }
+  L1.SetRawData(buffer1);
+  L1.GetRawData(buffer2);
+  for(int i = 0; i < 100; i++){
+    EXPECT_EQ(buffer1[i], buffer2[i]);
+  }
+}
 
 } // namespace
