@@ -711,5 +711,60 @@ TEST(LargeIntegerBitwiseOperatorTest, TempRightShiftOperator){
 
 }
 
+class LargeIntegerComparisonOperatorTest : public testing::Test
+{
+protected:
+  
+  // naming convention: L_<BitLength>_<value>_<radix>
+  string s1 = "0";
+  string s2 = "1";
+  
+  int radix = 2;
+  LargeInteger<6400> L1, L2;
+
+  virtual void SetUp(){
+    L1.SetFromString(s1.c_str(), radix);
+    L2.SetFromString(s2.c_str(), radix);
+  }
+};
+
+TEST_F(LargeIntegerComparisonOperatorTest, EqualAndNotEqualOperator){
+
+  EXPECT_TRUE(L1 != L2);
+
+  L2.SetFromString(s1.c_str(), radix);
+  
+  EXPECT_FALSE(L1 != L2);
+
+}
+
+TEST_F(LargeIntegerComparisonOperatorTest, LessAndBiggerThanOrEqualToOperator){
+  EXPECT_TRUE(L1 < L2);
+
+  // case L1 == L2
+  L2.SetFromString(s1.c_str(), radix);
+  EXPECT_FALSE(L1 < L2);
+
+  // case L2 > L1
+  L1.SetFromString(s2.c_str(), radix);
+  L2.SetFromString(s1.c_str(), radix);
+
+  EXPECT_FALSE(L1 < L2);
+}
+
+TEST_F(LargeIntegerComparisonOperatorTest, BiggerAndLessThanOrEqualToOperator){
+  EXPECT_TRUE(L2 > L1);
+
+  // case L2 == L1
+  L2.SetFromString(s1.c_str(), radix);
+  EXPECT_FALSE(L2 > L1);
+
+  // case L1 < L2
+  L1.SetFromString(s2.c_str(), radix);
+  L2.SetFromString(s1.c_str(), radix);
+
+  EXPECT_FALSE(L2 > L1);
+}
+
 
 } // namespace
