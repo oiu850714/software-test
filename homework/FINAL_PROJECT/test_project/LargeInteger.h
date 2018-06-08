@@ -122,6 +122,13 @@ class LargeInteger{
 		// Presented in byte.
 		size_t      GetBufferSize       (                       void) const;
 
+		// Test Utilities
+		QWORD* GetInternalBuffer() const{
+			return NumberCell;
+		}
+		int GetInternalBufferLength() const{
+			return QWORDLength;
+		}
 
 	// Private members.
 	private:
