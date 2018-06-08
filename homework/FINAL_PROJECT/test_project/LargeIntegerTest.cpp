@@ -836,4 +836,54 @@ TEST(LargeIntegerAssignmentTest, AssignFromQWORD){
   EXPECT_EQ(L1, Q1);
 }
 
+
+TEST(LargeIntegerMemberArithmeticOperatorTest, UnaryPlus){
+  LargeInteger<6400> L1;
+  L1.SetFromString("9487555666000AAAFFFFBBBBBB", 16);
+
+  EXPECT_EQ(L1, +L1);
+}
+
+TEST(LargeIntegerMemberArithmeticOperatorTest, UnaryMinus){
+  LargeInteger<6400> L1;
+  L1.SetFromString("ffffffff", 16);
+
+  LargeInteger<6400> L2 = -L1;
+  EXPECT_EQ(string(L2.ConvertToString(16)), "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000001");
+  // above string == -"ffffffff" in LargeInteger<6400>
+
+  L2 = -L2;
+  EXPECT_EQ(string(L2.ConvertToString(16)), "ffffffff");
+}
+
+TEST(LargeIntegerMemberArithmeticOperatorTest, PrefixAdd){
+  LargeInteger<6400> L1, L2;
+  L1.SetFromString("FFFFFFFF", 16);
+  L2.SetFromString("100000000", 16);
+  EXPECT_EQ(++L1, L2);
+}
+
+TEST(LargeIntegerMemberArithmeticOperatorTest, PostfixAdd){
+  LargeInteger<6400> L1, L2;
+  L1.SetFromString("FFFFFFFF", 16);
+  L2.SetFromString("100000000", 16);
+  EXPECT_NE(L1++, L2);
+  EXPECT_EQ(L1, L2);
+}
+
+TEST(LargeIntegerMemberArithmeticOperatorTest, PrefixSub){
+  LargeInteger<6400> L1, L2;
+  L1.SetFromString("100000000", 16);
+  L2.SetFromString("FFFFFFFF", 16);
+  EXPECT_EQ(--L1, L2);
+}
+
+TEST(LargeIntegerMemberArithmeticOperatorTest, PostfixSub){
+  LargeInteger<6400> L1, L2;
+  L1.SetFromString("100000000", 16);
+  L2.SetFromString("FFFFFFFF", 16);
+  EXPECT_NE(L1--, L2);
+  EXPECT_EQ(L1, L2);
+}
+
 } // namespace
