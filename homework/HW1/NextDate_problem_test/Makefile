@@ -30,7 +30,7 @@ CXXFLAGS += -g -std=c++11 -Wall -Wextra -pthread -fprofile-arcs -ftest-coverage
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = sample1_unittest NextDate_verifier_unittest
+TESTS = sample1_unittest NextDate_verifier_unittest final_exam
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -81,6 +81,13 @@ NextDate_verifier_unittest.o : $(USER_DIR)/NextDate_verifier_unittest.cpp \
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/NextDate_verifier_unittest.cpp
 
 NextDate_verifier_unittest : NextDate_verifier.o NextDate_verifier_unittest.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+final_exam.o : $(USER_DIR)/final_exam.cpp \
+                     $(USER_DIR)/NextDate_verifier.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/final_exam.cpp
+
+final_exam : NextDate_verifier.o final_exam.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
 
